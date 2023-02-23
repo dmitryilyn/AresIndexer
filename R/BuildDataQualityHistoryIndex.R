@@ -42,8 +42,8 @@ buildDataQualityHistoryIndex <-
       dqd_execution_date <- format(lubridate::ymd_hms(json$endTimestamp),"%Y-%m-%d")
 
       stratifiedAggregates <- json$CheckResults %>%
-        filter(FAILED==1) %>%
-        group_by(CATEGORY, toupper(CDM_TABLE_NAME)) %>%
+        filter(failed==1) %>%
+        group_by(category, toupper(cdmTableName)) %>%
         summarise(count_value=n())
       names(stratifiedAggregates) <- c("category", "cdm_table_name", "count_value")
       stratifiedAggregates$dqd_execution_date <- dqd_execution_date
